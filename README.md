@@ -17,6 +17,9 @@
 -   Аутентификация по JWT-токену
 
 ## Запуск проекта
+
+http://127.0.0.1:5000
+
 Клонирование репозитория
 ```
 https://github.com/anastasia-kassina/yamdb_final.git
@@ -47,8 +50,4 @@ docker-compose exec web python manage.py createsuperuser
 Собираем статику
 ```
 docker-compose exec web python manage.py collectstatic --no-input
-```
-
-```
-http://127.0.0.1:5000
 ```
