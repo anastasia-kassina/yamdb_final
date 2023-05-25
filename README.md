@@ -48,7 +48,7 @@ docker-compose exec web python manage.py createsuperuser
 ```
 docker-compose exec web python manage.py collectstatic --no-input
 ```
-Наполняем бд данными из файла fixtures.json
+
 ```
-docker-compose exec web python manage.py loaddata fixtures.json
+http://127.0.0.1:5000
 ```
