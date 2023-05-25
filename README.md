@@ -20,17 +20,18 @@
 Клонирование репозитория
 ```
 https://github.com/anastasia-kassina/yamdb_final.git
-cd api_yamdb
 ```
+Создайте файл .env в директории /infra для работы с базой данных. 
+Заполните его по шаблону:
 ```
-docker build -t infra .
+DB_ENGINE=django.db.backends.postgresql # указываем, что работаем с postgresql
+DB_NAME=postgres # имя базы данных
+POSTGRES_USER=postgres # логин для подключения к базе данных
+POSTGRES_PASSWORD=postgres # пароль для подключения к БД (установите свой)
+DB_HOST=db # название сервиса (контейнера)
+DB_PORT=5432 # порт для подключения к БД
 ```
-
-```
-cd ..
-cd infra
-```
-
+Поднимаем контейнеры
 ```
 docker compose up -d --build
 ```
@@ -38,4 +39,16 @@ docker compose up -d --build
 ```
 docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
+```
+Создаем суперпользователя
+```
+docker-compose exec web python manage.py createsuperuser
+```
+Собираем статику
+```
+docker-compose exec web python manage.py collectstatic --no-input
+```
+Наполняем бд данными из файла fixtures.json
+```
+docker-compose exec web python manage.py loaddata fixtures.json
 ```
