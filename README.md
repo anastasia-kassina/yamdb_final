@@ -22,7 +22,7 @@ http://127.0.0.1:5000
 
 Клонирование репозитория
 ```
-https://github.com/anastasia-kassina/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg
+![example workflow](https://github.com/anastasia-kassina/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 ```
 Создайте файл .env в директории /infra для работы с базой данных. 
 Заполните его по шаблону:
