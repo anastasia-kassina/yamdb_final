@@ -1,21 +1,15 @@
-import django_filters
-from reviews.models import Category, Genre, Title
+from django_filters import rest_framework as filters
+
+from reviews.models import Title
 
 
-class TitleFilter(django_filters.FilterSet):
-    """Фильтерсет для фильтрации по модели Title"""
+class TitleFilter(filters.FilterSet):
+    """Фильтрация тайтлов."""
 
-    category = django_filters.ModelMultipleChoiceFilter(
-        field_name='category__slug',
-        to_field_name='slug',
-        queryset=Category.objects.all()
-    )
-    genre = django_filters.ModelMultipleChoiceFilter(
-        field_name='genre__slug',
-        to_field_name='slug',
-        queryset=Genre.objects.all()
-    )
+    name = filters.CharFilter(field_name='name', lookup_expr='icontains')
+    genre = filters.CharFilter(field_name='genre__slug')
+    category = filters.CharFilter(field_name='category__slug')
 
     class Meta:
         model = Title
-        fields = ['category', 'genre', 'name', 'year']
+        fields = ('name', 'genre', 'category', 'year')

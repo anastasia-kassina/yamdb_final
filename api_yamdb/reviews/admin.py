@@ -1,65 +1,64 @@
-import reviews.models as models
 from django.contrib import admin
-from django.db.models import Avg
+
+from reviews.models import Category, Comment, Genre, Review, Title, User
 
 
-class GenreInLine(admin.TabularInline):
-    model = models.GenreTitle
-    extra = 0
-
-
-@admin.register(models.Title)
 class TitleAdmin(admin.ModelAdmin):
-    model = models.Title
     list_display = (
-        'name', 'year', 'description', 'get_rating', 'category', 'get_genres'
-    )
-    search_fields = (
+        'pk',
         'name',
-        'year',
         'description',
-        'get_rating',
-        'category__name',
-        'genre__name'
+        'category',
+        'year'
     )
+    list_editable = ('category',)
+    search_fields = ('genre',)
+    list_filter = ('category',)
     empty_value_display = '-пусто-'
-    inlines = [GenreInLine]
-
-    def get_genres(self, instance):
-        """Функция для вывода списка жанров произведения через запятую"""
-        genres_list = instance.genre.get_queryset().order_by('?')
-        return ', '.join([str(i) for i in genres_list])
-    get_genres.short_description = 'Жанры'
-
-    def get_rating(self, instance):
-        """Функция для вывода списка жанров произведения через запятую"""
-        return instance.reviews.all().aggregate(Avg('score'))['score__avg']
-    get_rating.short_description = 'Рейтинг'
 
 
-@admin.register(models.Review)
-class ReviewAdmin(admin.ModelAdmin):
-    model = models.Review
+class GenreAdmin(admin.ModelAdmin):
     list_display = (
-        'author', 'score', 'text', 'title', 'pub_date'
+        'pk',
+        'name',
+        'slug'
     )
-    search_fields = (
-        'author__username', 'title__name', 'text', 'score'
+    search_fields = ('name',)
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'pk',
+        'name',
+        'slug'
     )
+    search_fields = ('name',)
+    list_filter = ('name',)
     empty_value_display = '-пусто-'
 
 
-@admin.register(models.Comment)
+class ReviewsAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'text', 'score', 'author', 'title')
+    search_fields = ('title', 'author')
+    list_filter = ('score', 'text',)
+    empty_value_display = '-пусто-'
+
+
 class CommentAdmin(admin.ModelAdmin):
-    model = models.Comment
     list_display = (
-        'author', 'text', 'pub_date'
+        'pk',
+        'review',
+        'author',
+        'pub_date'
     )
-    search_fields = (
-        'author__username', 'text'
-    )
+    search_fields = ('title', 'author')
+    list_filter = ('review', 'author', 'pub_date')
     empty_value_display = '-пусто-'
 
 
-admin.site.register(models.Category)
-admin.site.register(models.Genre)
+admin.site.register(User)
+admin.site.register(Title, TitleAdmin)
+admin.site.register(Genre, GenreAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Review, ReviewsAdmin)
+admin.site.register(Comment, CommentAdmin)
