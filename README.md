@@ -18,6 +18,8 @@
 
 ## Запуск проекта
 
+http://158.160.50.235
+
 Клонирование репозитория
 
 ![example workflow](https://github.com/anastasia-kassina/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
@@ -49,4 +51,4 @@ docker-compose exec web python manage.py createsuperuser
 ```
 docker-compose exec web python manage.py collectstatic --no-input
 ```
-http://158.160.50.235
+
