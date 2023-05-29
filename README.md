@@ -18,6 +18,7 @@
 
 ## Запуск проекта
 
+http://158.160.50.235
 
 Клонирование репозитория
 
@@ -50,4 +51,3 @@ docker-compose exec web python manage.py createsuperuser
 ```
 docker-compose exec web python manage.py collectstatic --no-input
 ```
-http://158.160.50.235
