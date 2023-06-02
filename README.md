@@ -20,6 +20,8 @@
 
 Клонирование репозитория
 
+http://158.160.50.235
+
 ![example workflow](https://github.com/anastasia-kassina/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 
 Создайте файл .env в директории /infra для работы с базой данных. 
@@ -49,4 +51,3 @@ docker-compose exec web python manage.py createsuperuser
 ```
 docker-compose exec web python manage.py collectstatic --no-input
 ```
-http://158.160.50.235
